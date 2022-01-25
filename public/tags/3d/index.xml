@@ -1,21 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>3D on RLatam Blog</title>
-    <link>https://rlatam.blog/tags/3d/</link>
-    <description>Recent content in 3D on RLatam Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>es</language>
-    <lastBuildDate>Fri, 24 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rlatam.blog/tags/3d/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Árbol de Navidad en 3D con R</title>
-      <link>https://rlatam.blog/2021/12/24/%C3%A1rbol-de-navidad-en-3d-con-r/</link>
-      <pubDate>Fri, 24 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://rlatam.blog/2021/12/24/%C3%A1rbol-de-navidad-en-3d-con-r/</guid>
-      <description>La Navidad llegó a nuestros tutoriales. Aquí te mostraré un código reproducible para producir un arbolito de navidad en 3D usando plotly, para que sorprendas a tus colegas esta noche buena.
-Librerías# Instalarinstall.packages(&amp;quot;tidyverse&amp;quot;)install.packages(&amp;quot;plotly&amp;quot;)# Activarlibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --## v ggplot2 3.3.5 v purrr 0.3.4## v tibble 3.1.6 v dplyr 1.0.7## v tidyr 1.</description>
-    </item>
-    
-  </channel>
-</rss>

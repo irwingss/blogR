@@ -1,37 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Pruebas estadísticas on RLatam Blog</title>
-    <link>https://rlatam.blog/tags/pruebas-estad%C3%ADsticas/</link>
-    <description>Recent content in Pruebas estadísticas on RLatam Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>es</language>
-    <lastBuildDate>Thu, 22 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rlatam.blog/tags/pruebas-estad%C3%ADsticas/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Test de Independencia de Chi cuadrado usando R</title>
-      <link>https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/</link>
-      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/</guid>
-      <description>La prueba de chi cuadrado es una prueba estadística sencilla que puede ser usada cuando se tienen datos de recuento de ocurrencias de categorías. El análisis puede ser definido como una:
-Prueba de diferencia de conteos: para identificar si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí.
-Prueba de diferencia de conteos con probabilidades específicas: identifica si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí dado que cada evento tiene una probabilidad de ocurrencia definida.</description>
-    </item>
-    
-    <item>
-      <title>Gráficos de Odds Ratio con OddsPlotty</title>
-      <link>https://rlatam.blog/2021/07/21/gr%C3%A1ficos-de-odds-ratio-con-oddsplotty/</link>
-      <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://rlatam.blog/2021/07/21/gr%C3%A1ficos-de-odds-ratio-con-oddsplotty/</guid>
-      <description>En este tutorial revisaremos el uso de la nueva librería OddsPlotty para la generación de gráficos de Odds Ratio.
-
-Video explicativo
-Librarías de Trabajo El siguiente código sirve para instalar las librerías a usar:
-install.packages(&amp;quot;OddsPlotty&amp;quot;)install.packages(&amp;quot;tidyverse&amp;quot;)install.packages(&amp;quot;mlbench&amp;quot;)Ahora, activa las librerías:
-library(tidyverse)library(OddsPlotty)library(mlbench) # para cargar la base de datos
-Transformación inicial de la base de datosEste paso no es necesario siempre.</description>
-    </item>
-    
-  </channel>
-</rss>

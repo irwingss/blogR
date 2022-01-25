@@ -1,22 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Chi cuadrado on RLatam Blog</title>
-    <link>https://rlatam.blog/tags/chi-cuadrado/</link>
-    <description>Recent content in Chi cuadrado on RLatam Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>es</language>
-    <lastBuildDate>Thu, 22 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rlatam.blog/tags/chi-cuadrado/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Test de Independencia de Chi cuadrado usando R</title>
-      <link>https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/</link>
-      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/</guid>
-      <description>La prueba de chi cuadrado es una prueba estadística sencilla que puede ser usada cuando se tienen datos de recuento de ocurrencias de categorías. El análisis puede ser definido como una:
-Prueba de diferencia de conteos: para identificar si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí.
-Prueba de diferencia de conteos con probabilidades específicas: identifica si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí dado que cada evento tiene una probabilidad de ocurrencia definida.</description>
-    </item>
-    
-  </channel>
-</rss>
