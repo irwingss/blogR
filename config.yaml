@@ -6,8 +6,12 @@ googleAnalytics: ''
 paginate: 10
 footnotereturnlinkcontents: ↩
 theme: hugo-icarus-theme
+
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
 permalinks:
   post: /:year/:month/:day/:slug
+
 params:
   author: Irwing S. Saldaña
   avatar: assets/images/avatar.png
@@ -18,9 +22,10 @@ params:
   custom_js: []
   date_format: '2006-01-02'
   disable_mathjax: no
-  location: Lima, Peru
+  location: Peru
   logo: assets/images/logo.png
   mainSections: post
+
   menu:
     - before: yes
       label: Inicio
@@ -28,14 +33,18 @@ params:
     - before: no
       label: Categorías
       link: categories/
+
   profile:
     follow_button: https://github.com/irwingss
+
   site_description: ''
+
   widgets:
-    categories: yes
     recent_articles: yes
-    tag_cloud: yes
+    categories: yes
+    tag_cloud: no
     tags: yes
+
 social:
   behance: ''
   bitbucket: ''
