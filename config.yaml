@@ -1,7 +1,7 @@
 baseurl: https://rlatam.blog/
 languageCode: es
 title: RLatam Blog
-disqusShortname: spf13
+disqusShortname: ibrack
 googleAnalytics: ''
 paginate: 10
 footnotereturnlinkcontents: ↩
