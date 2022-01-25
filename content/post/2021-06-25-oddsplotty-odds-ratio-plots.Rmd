@@ -1,0 +1,130 @@
+---
+title: 'Gráficos de Odds Ratio con OddsPlotty' 
+author: "Irwing S. Saldaña" 
+date: "2021-07-21" 
+categories:   
+     - Estadística
+     - Data Visualization
+tags:   
+     - Pruebas estadísticas
+     - GLM
+     - Modelamiento
+banner: "banners/p1.png"
+output: html_document
+---
+
+En este tutorial revisaremos el uso de la nueva librería OddsPlotty para la generación de gráficos de Odds Ratio.
+
+<br>
+
+## **Video explicativo**
+
+```{=html}
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/0KIBd4S6rt8?autoplay=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="Video explicativo"></iframe>
+</div>
+```
+<br> 
+
+## **Librarías de Trabajo **
+
+El siguiente código sirve para instalar las librerías a usar:
+
+```{r, eval=FALSE}
+install.packages("OddsPlotty")
+install.packages("tidyverse")
+install.packages("mlbench")
+```
+
+Ahora, activa las librerías:
+
+```{r, warning=F, message=F}
+library(tidyverse)
+library(OddsPlotty)
+library(mlbench) # para cargar la base de datos
+```
+
+<br>
+
+## **Transformación inicial de la base de datos**
+
+Este paso no es necesario siempre. El objetivo es eliminar filas sin datos (incompletas), eliminar columnas que no vayan a ser usadas en el modelo GLM, y, para efectos de este ejercicio simple, convertir en numéricas las columnas factor.
+
+```{r}
+# Cargamos la base de datos BreastCancer
+data("BreastCancer")
+
+# Vista previa
+head(BreastCancer)
+
+# Transformación
+BreastCancer <- BreastCancer %>% 
+  select(-1) %>%  # eliminar columnas que se vayan a usar
+  mutate_if(is.factor, as.numeric) %>% # convertir columnas factores a numéricas
+  mutate(Class = factor(Class)) %>% #convertir a factor la variable respuesta
+  filter(complete.cases(.)) # eliminar filas incompletas 
+```
+
+<br>
+
+## **Modelo lineal**
+
+```{r}
+# Crear el modelo generalizado lineal (GLM): regresión logística
+mod1 <- glm(Class ~ ., data = BreastCancer, family = binomial(link = "logit"))
+
+# Resumen estadístico del modelo
+summary(mod1)
+```
+
+<br>
+
+## **Gráfico con OddsPlotty**
+
+```{r, fig.align='center', out.width="90%"}
+
+# Gráfico inicial
+OR <- odds_plot(mod1, 
+                title = "Odds Ratios",
+                subtitle = "Factores Asociados al Cáncer de Pulmón",
+                point_col = "#5f00db", 
+                error_bar_colour = "#5f00db",
+                point_size = 1, 
+                error_bar_width = 0.2,
+                h_line_color = "#5f00db")
+OR$odds_plot
+
+# Adicionar un tema, eliminar leyenda y etiqueta del eje Y
+ORplot <- OR$odds_plot+
+  theme_test()+
+  theme(legend.position = "none")+
+  labs(x="")
+ORplot
+
+# Adicionar valores de Odds Ratio 
+ORplot +
+  geom_text(label = round(OR$odds_data$OR, digits = 2), size=3, 
+            hjust = 1.5, vjust = -0.35, color="#5f00db")+
+  # scale_x_discrete() te ayudará a modificar las etiquetas del eje Y.
+  # Por ejemplo, modificar Mitoses por Mitosis, o Cl.thickness por 
+  # Grosor de Cl:
+  scale_x_discrete(expand=c(0.15,0.15),
+                   label = c("Mitoses"="Mitosis",
+                             "Cl.thickness"="Grosor de Cl"))
+```
+
+<br>
+
+## **Inspeccionar la información de Odds Ratios**
+
+```{r}
+OR$odds_data %>% as.data.frame()
+```
+
+**Visita:**
+
+-   [Instituto de Ciencias Antonio Brack [website]](https://www.brackinstitute.com/)
+
+-   [Fan page [Facebook]](https://web.facebook.com/brackinstitute/)
+
+-   [Comunidad RLatam [Facebook]](https://web.facebook.com/groups/686154108929440)

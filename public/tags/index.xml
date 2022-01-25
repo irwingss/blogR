@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on RLatam Blog</title>
+    <link>https://rlatam.blog/tags/</link>
+    <description>Recent content in Tags on RLatam Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es</language>
+    <lastBuildDate>Fri, 31 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rlatam.blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R básico</title>
+      <link>https://rlatam.blog/tags/r-b%C3%A1sico/</link>
+      <pubDate>Fri, 31 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://rlatam.blog/tags/r-b%C3%A1sico/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>3D</title>
+      <link>https://rlatam.blog/tags/3d/</link>
+      <pubDate>Fri, 24 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://rlatam.blog/tags/3d/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plotly</title>
+      <link>https://rlatam.blog/tags/plotly/</link>
+      <pubDate>Fri, 24 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://rlatam.blog/tags/plotly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Chi cuadrado</title>
+      <link>https://rlatam.blog/tags/chi-cuadrado/</link>
+      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://rlatam.blog/tags/chi-cuadrado/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pruebas estadísticas</title>
+      <link>https://rlatam.blog/tags/pruebas-estad%C3%ADsticas/</link>
+      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://rlatam.blog/tags/pruebas-estad%C3%ADsticas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GLM</title>
+      <link>https://rlatam.blog/tags/glm/</link>
+      <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://rlatam.blog/tags/glm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Modelamiento</title>
+      <link>https://rlatam.blog/tags/modelamiento/</link>
+      <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://rlatam.blog/tags/modelamiento/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

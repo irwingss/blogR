@@ -1,0 +1,67 @@
+baseurl: https://rlatam.blog/
+languageCode: es
+title: RLatam Blog
+disqusShortname: spf13
+googleAnalytics: ''
+paginate: 10
+footnotereturnlinkcontents: ↩
+theme: hugo-icarus-theme
+permalinks:
+  post: /:year/:month/:day/:slug
+params:
+  author: Irwing S. Saldaña
+  avatar: assets/images/avatar.png
+  gravatar : ""
+  bio: Ecoinformática - Biogeografía - Evolución
+  copyright: Powered by [Hugo](//gohugo.io). Theme by [PPOffice](http://github.com/ppoffice).
+  custom_css: []
+  custom_js: []
+  date_format: '2006-01-02'
+  disable_mathjax: no
+  location: Lima, Peru
+  logo: assets/images/logo.png
+  mainSections: post
+  menu:
+    - before: yes
+      label: Inicio
+      link: /
+    - before: no
+      label: Categorías
+      link: categories/
+  profile:
+    follow_button: https://github.com/irwingss
+  site_description: ''
+  widgets:
+    categories: yes
+    recent_articles: yes
+    tag_cloud: yes
+    tags: yes
+social:
+  behance: ''
+  bitbucket: ''
+  codepen: ''
+  deviantart: ''
+  dribbble: ''
+  facebook: 'https://web.facebook.com/irwingsmith/'
+  facebook_admin: ''
+  flickr: ''
+  foursquare: ''
+  github: irwingss
+  gitlab: ''
+  googleplus: ''
+  instagram: ''
+  jsfiddle: ''
+  linkedin: irssald
+  medium: ''
+  pinterest: ''
+  reddit: ''
+  slideshare: ''
+  stackoverflow: ''
+  tumblr: ''
+  twitter: irssald
+  twitter_domain: ''
+  vimeo: ''
+  vine: ''
+  wordpress: ''
+  xing: ''
+  youtube: channel/UCOTqfoQKMc61N_za-R6Ve7Q

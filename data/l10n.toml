@@ -1,0 +1,39 @@
+[articles]
+    read_more = "Leer más"
+    words = "palabras"
+    readingtime = "minutos de lectura"
+    share = "Compartir"
+    comments = "Comentarios"
+
+# Linked older/newer posts at the bottom of each one
+[articles.linked_posts]
+    older = "Antiguo"
+    newer = "Nuevo"
+
+[search]
+    placeholder = "Buscar"
+
+[pagination]
+    previous = "Previo"
+    next = "Siguiente"
+
+[profile]
+    follow_button = "Seguir"
+    tags = "Tags"
+    posts = "Publicaciones"
+
+[page_not_found]
+    title = "404 - página no encontrada"
+    subtitle = "El contenido que buscas parece no existir."
+
+[widgets.categories]
+    title = "Categorías"
+
+[widgets.recent_articles]
+    title = "Recientes"
+
+[widgets.tag_cloud]
+    title = "Nube de Tags"
+
+[widgets.tags]
+    title = "Tags"

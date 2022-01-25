@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Test de Independencia de Chi cuadrado usando R &middot; RLatam Blog</title>
+    <meta name="generator" content="Hugo 0.86.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Irwing S. Saldaña">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/"/>
+    <link rel="icon" href="https://rlatam.blog/favicon.ico">
+    <link rel="apple-touch-icon" href="https://rlatam.blog/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://rlatam.blog/css/style.css">
+    <link rel="stylesheet" href="https://rlatam.blog/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://rlatam.blog/css/monokai.css">
+    <link rel="stylesheet" href="https://rlatam.blog/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Test de Independencia de Chi cuadrado usando R" />
+<meta property="og:description" content="La prueba de chi cuadrado es una prueba estadística sencilla que puede ser usada cuando se tienen datos de recuento de ocurrencias de categorías. El análisis puede ser definido como una:
+Prueba de diferencia de conteos: para identificar si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí.
+Prueba de diferencia de conteos con probabilidades específicas: identifica si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí dado que cada evento tiene una probabilidad de ocurrencia definida." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-07-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-22T00:00:00+00:00" />
+
+
+    
+    <meta itemprop="name" content="Test de Independencia de Chi cuadrado usando R">
+<meta itemprop="description" content="La prueba de chi cuadrado es una prueba estadística sencilla que puede ser usada cuando se tienen datos de recuento de ocurrencias de categorías. El análisis puede ser definido como una:
+Prueba de diferencia de conteos: para identificar si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí.
+Prueba de diferencia de conteos con probabilidades específicas: identifica si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí dado que cada evento tiene una probabilidad de ocurrencia definida."><meta itemprop="datePublished" content="2021-07-22T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-22T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1899">
+<meta itemprop="keywords" content="Pruebas estadísticas,Chi cuadrado," />
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Test de Independencia de Chi cuadrado usando R"/>
+<meta name="twitter:description" content="La prueba de chi cuadrado es una prueba estadística sencilla que puede ser usada cuando se tienen datos de recuento de ocurrencias de categorías. El análisis puede ser definido como una:
+Prueba de diferencia de conteos: para identificar si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí.
+Prueba de diferencia de conteos con probabilidades específicas: identifica si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí dado que cada evento tiene una probabilidad de ocurrencia definida."/>
+<meta name="twitter:site" content="@irssald"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://rlatam.blog/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://rlatam.blog/assets/images/logo.png')"></i>
+          
+          <span class="site-title">RLatam Blog</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://rlatam.blog/">Inicio</a>
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">Sobre mi</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://rlatam.blog/categories/">Categorías</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://rlatam.blog/assets/images/avatar.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Buscar">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://rlatam.blog/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://rlatam.blog/">Inicio</a></td>
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">Sobre mi</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://rlatam.blog/categories/">Categorías</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://rlatam.blog/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://rlatam.blog/assets/images/avatar.png">
+      
+      <h2 id="name">Irwing S. Saldaña</h2>
+      <h3 id="title">Ecoinformática - Biogeografía - Evolución</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>Lima, Peru</span>
+      
+          <a id="follow" href="https://github.com/irwingss">
+              Seguir
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        4
+        <span>Publicaciones</span>
+      </div>
+      <div class="article-info-block">
+        
+          7
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/irwingss" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//youtube.com/channel/UCOTqfoQKMc61N_za-R6Ve7Q" target="_blank" title="YouTube"><i class="fa fa-youtube"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/irssald" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//facebook.com/https://web.facebook.com/irwingsmith/" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a></td>
+
+
+
+<td><a href="//twitter.com/irssald" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+          <td><a href="https://rlatam.blog/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://rlatam.blog/banners/p2.png" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/">
+    <h1 class="article-title" itemprop="name">
+        Test de Independencia de Chi cuadrado usando R
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2021-07-22 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-07-22</time>
+            &middot;
+            1899
+            palabras
+            &middot;
+            9
+            minutos de lectura
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://rlatam.blog/categories/estad%C3%ADstica">Estadística</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://rlatam.blog/categories/data-visualization">Data Visualization</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://rlatam.blog/tags/pruebas-estad%C3%ADsticas">Pruebas estadísticas</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://rlatam.blog/tags/chi-cuadrado">Chi cuadrado</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>La <strong>prueba de chi cuadrado</strong> es una prueba estadística sencilla que puede ser usada cuando se tienen datos de recuento de ocurrencias de categorías. El análisis puede ser definido como una:</p>
+<ul>
+<li><p><strong>Prueba de diferencia de conteos:</strong> para identificar si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí.</p></li>
+<li><p><strong>Prueba de diferencia de conteos con probabilidades específicas:</strong> identifica si los conteos observados en las categorías de una variable son estadísticamente diferentes entre sí dado que cada evento tiene una probabilidad de ocurrencia definida. Se debe especificar las probabilidades como un vector en el argumento <code>p</code> de la función. Para fines de este tutorial no veremos el detalle de esta prueba.</p></li>
+<li><p><strong>Prueba de independencia de dos factores:</strong> identifica a nivel estadístico si las categorías de dos variables están asociadas o son independientes.</p></li>
+</ul>
+<p>En R, la función nativa básica para el cálculo de esta prueba es:</p>
+<pre class="r"><code># Debemos tener en cuenta que la prueba tiene 
+# la corrección de Yates activa por defecto. 
+# Debemos modificar el argumento correct si 
+# deseamos activarla o desactivarla.
+chisq.test(x, correct = TRUE)</code></pre>
+<p><br></p>
+<p><br></p>
+<div id="video-explicativo" class="section level2">
+<h2><strong>Video explicativo</strong></h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/KTSBu6CdJbg?autoplay=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="Video explicativo"></iframe>
+</div>
+<p><br></p>
+<div id="librarías-de-trabajo" class="section level3">
+<h3><strong>Librarías de Trabajo</strong></h3>
+<p>El siguiente código sirve para instalar las librerías a usar:</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;corrplot&quot;)
+install.packages(&quot;vcd&quot;)
+install.packages(&quot;DescTools&quot;)
+install.packages(&quot;CGPfunctions&quot;)</code></pre>
+<p>Ahora, activa las librerías:</p>
+<pre class="r"><code>library(tidyverse)
+library(corrplot)
+library(vcd)
+library(DescTools)
+library(CGPfunctions)</code></pre>
+</div>
+</div>
+<div id="tablas-de-ejemplo" class="section level2">
+<h2><strong>Tablas de ejemplo</strong></h2>
+<p>Trabajaremos con dos tipos de tablas para realizar los ejemplos:</p>
+<ul>
+<li>Tabla de contingencia de dos factores.</li>
+</ul>
+<pre class="r"><code># Tabla de contingencia de dos factores. 
+# Nivel (de 0 al 3) vs Grado (de 1 al 5).
+url1 &lt;- &quot;https://raw.githubusercontent.com/irwingss/ArchivosCuestionarios/main/Matriz%20Grados.csv&quot;
+grados &lt;- read.csv(url1)
+
+# Visualizar
+grados</code></pre>
+<pre><code>##   Grado1 Grado2 Grado3 Grado4 Grado5
+## 1   2900    392    932   1812   2854
+## 2    522    421    574    917   1247
+## 3   5678   8126   1171   1478   2040
+## 4   3719   2975   2811   1704   2244</code></pre>
+<ul>
+<li>Tabla larga con los valores de ocurrencia las categorías.</li>
+</ul>
+<pre class="r"><code># Tabla larga con los valores de ocurrencia las categorías
+url2 &lt;- &quot;https://raw.githubusercontent.com/irwingss/ArchivosCuestionarios/main/tabla_larga_chi_cuadrado.csv&quot;
+dataMejora &lt;- read.csv(url2)
+
+# Visualizar primeras 20 filas
+head(dataMejora,20)</code></pre>
+<pre><code>##      treatment  improvement
+## 1      treated     improved
+## 2      treated     improved
+## 3  not-treated     improved
+## 4      treated     improved
+## 5      treated not-improved
+## 6      treated not-improved
+## 7  not-treated not-improved
+## 8      treated not-improved
+## 9  not-treated     improved
+## 10     treated     improved
+## 11 not-treated     improved
+## 12 not-treated not-improved
+## 13 not-treated not-improved
+## 14 not-treated not-improved
+## 15 not-treated     improved
+## 16 not-treated     improved
+## 17     treated     improved
+## 18     treated     improved
+## 19 not-treated not-improved
+## 20 not-treated not-improved</code></pre>
+<ul>
+<li>Como dato adicional, si deseas transformar una matriz de contingencia a tabla larga (e.g., convirtamos <code>grados</code> en tabla larga), puedes usar el siguiente código:</li>
+</ul>
+<pre class="r"><code># Si deseas reutilizar este código, solo cambia las etiquetas: 
+# grados y categoría por el nombre de las dos factores de tu interés
+grados%&gt;%
+  as.data.frame() %&gt;% 
+  rownames_to_column() %&gt;%            
+  gather(Grados, valores, -rowname) %&gt;% 
+  rowwise() %&gt;%                       
+  mutate(valores = list(1:valores)) %&gt;%  
+  unnest(valores) %&gt;%                   
+  select(-valores) %&gt;% 
+  rename(Nivel = rowname) -&gt; gradosLarga
+
+# Visualizar el tibble
+View(gradosLarga)</code></pre>
+</div>
+<div id="chi-cuadrado-para-conteos" class="section level1">
+<h1><strong>Chi cuadrado para conteos</strong></h1>
+<p>Se desea evaluar si existe diferencia entre la cantidad (recuento) de las personas inscritas en todos los grados para el primer nivel de la tabla <code>grados</code> podemos hacer un test de chi cuadrado sencillo:</p>
+<pre class="r"><code># Separar la base de datos de grados
+inscritos &lt;- grados[1,]
+inscritos</code></pre>
+<pre><code>##   Grado1 Grado2 Grado3 Grado4 Grado5
+## 1   2900    392    932   1812   2854</code></pre>
+<pre class="r"><code># Realizar la prueba chi cuadrado
+resX2 &lt;- chisq.test(inscritos, correct = F)
+
+# Inspeccionar los valores esperados
+resX2$expected</code></pre>
+<pre><code>## [1] 1778 1778 1778 1778 1778</code></pre>
+<pre class="r"><code># Inspeccionar los valores observados
+resX2$observed</code></pre>
+<pre><code>## [1] 2900  392  932 1812 2854</code></pre>
+<pre class="r"><code># Ver los resultados de la prueba
+resX2</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  inscritos
+## X-squared = 2842.8, df = 4, p-value &lt; 2.2e-16</code></pre>
+<p>Las hipótesis a contrastar son:</p>
+<ul>
+<li><p>H0: no existe diferencia entre los recuentos de las personas inscritos en los grados.</p></li>
+<li><p>Ha: existe diferencia entre los recuentos de las personas inscritos en los grados.</p></li>
+</ul>
+<p>El <strong>p-valor &lt; 2.2e-16</strong> es menor a el p-valor crítico de 0.05, por lo que <strong>se rechaza H0</strong>, y decimos que existe diferencia entre los recuentos de las personas inscritas en los diferentes grados evaluados.</p>
+</div>
+<div id="chi-cuadrado-de-independencia-de-dos-factores" class="section level1">
+<h1><strong>Chi cuadrado de independencia de dos factores</strong></h1>
+<p>Es el uso más típico de la prueba es el contrastar si los niveles de dos factores, es decir, de dos variables categóricas, son independientes o existe evidencia estadística de asociación entre ellas.</p>
+<p>Las hipótesis a contrastar son:</p>
+<ul>
+<li><p>H0: las variables son independientes.</p></li>
+<li><p>Ha: las variables son dependientes.</p></li>
+</ul>
+<p>Veamos si existen diferencias entre los factores en los dos ejemplos cargados</p>
+<pre class="r"><code># Para matrices de contingencia (niveles vs grados)
+chisq.test(grados, correct = FALSE)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  grados
+## X-squared = 8885.1, df = 12, p-value &lt; 2.2e-16</code></pre>
+<p>El <strong>p-valor &lt; 2.2e-16</strong> es menor a el p-valor crítico de 0.05, por lo que <strong>se rechaza H0</strong>, y decimos que existe dependencia entre las variables niveles y grados.</p>
+<pre class="r"><code># Para tablas largas sin transformar 
+# (treatment vs improvement)
+with(dataMejora, chisq.test(treatment, improvement, correct = FALSE))</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  treatment and improvement
+## X-squared = 5.5569, df = 1, p-value = 0.01841</code></pre>
+<pre class="r"><code># Para tablas largas convertidas a matrices de 
+# contingencia (treatment vs improvement)
+matrizDesdeTablaLarga &lt;- table(dataMejora) 
+chisq.test(matrizDesdeTablaLarga, correct = FALSE)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  matrizDesdeTablaLarga
+## X-squared = 5.5569, df = 1, p-value = 0.01841</code></pre>
+<p>El <strong>p-valor &lt; 0.01841</strong> es menor a el p-valor crítico de 0.05, por lo que <strong>se rechaza H0</strong>, y decimos que la mejora (improvement) y el tratamiento (treatment) son dependientes.</p>
+<div id="corrección-de-yates" class="section level2">
+<h2><strong>Corrección de Yates</strong></h2>
+<p>Es buena práctica realizar la prueba de Chi cuadrado sin corrección, observar los valores esperados y detectar si alguno de ellos es menor a 5. Si eso ocurre, se debe aplicar la corrección de Yates para corregir el cálculo del p-valor.</p>
+<pre class="r"><code># Para ver los valores esperados se tiene que
+#  guardar la prueba como un objeto en el ambiente
+resGrados &lt;- chisq.test(grados, correct = FALSE)
+resMejora &lt;- with(dataMejora, chisq.test(treatment, improvement, correct = FALSE))
+
+# Luego, se inspecciona el objeto con $expected
+resGrados$expected</code></pre>
+<pre><code>##        Grado1   Grado2    Grado3    Grado4    Grado5
+## [1,] 2559.941 2379.214 1095.9481 1180.4207 1674.4760
+## [2,] 1059.971  985.139  453.7891  488.7659  693.3348
+## [3,] 5325.196 4949.246 2279.7939 2455.5141 3483.2492
+## [4,] 3873.891 3600.401 1658.4690 1786.2992 2533.9400</code></pre>
+<pre class="r"><code>resMejora$expected</code></pre>
+<pre><code>##              improvement
+## treatment     improved not-improved
+##   not-treated 31.95238     23.04762
+##   treated     29.04762     20.95238</code></pre>
+<pre class="r"><code># Incluso convertir esto a una prueba lógica
+# TRUE significa que el valor es mayor de 5
+resGrados$expected &gt; 5</code></pre>
+<pre><code>##      Grado1 Grado2 Grado3 Grado4 Grado5
+## [1,]   TRUE   TRUE   TRUE   TRUE   TRUE
+## [2,]   TRUE   TRUE   TRUE   TRUE   TRUE
+## [3,]   TRUE   TRUE   TRUE   TRUE   TRUE
+## [4,]   TRUE   TRUE   TRUE   TRUE   TRUE</code></pre>
+<pre class="r"><code>resMejora$expected &gt; 5</code></pre>
+<pre><code>##              improvement
+## treatment     improved not-improved
+##   not-treated     TRUE         TRUE
+##   treated         TRUE         TRUE</code></pre>
+<p>En ambos casos presentados no es necesario realizar la corrección de Yates.</p>
+</div>
+<div id="categorías-que-más-contribuyen-al-score-de-la-prueba" class="section level2">
+<h2><strong>Categorías que más contribuyen al score de la prueba</strong></h2>
+<p>Se puede conocer cuál es el aporte al score de Chi Cuadrado de cada categoría en las dos variables contrastadas visualizando los <strong>residuales</strong> (diferencia entre el valor esperado y el observado) en cada casilla.</p>
+<pre class="r"><code># Resultados textuales
+round(resGrados$residuals, 3)</code></pre>
+<pre><code>##       Grado1  Grado2  Grado3  Grado4  Grado5
+## [1,]   6.721 -40.741  -4.952  18.383  28.825
+## [2,] -16.524 -17.974   5.643  19.370  21.027
+## [3,]   4.835  45.156 -23.222 -19.727 -24.454
+## [4,]  -2.489 -10.423  28.301  -1.947  -5.760</code></pre>
+<pre class="r"><code># Gráfica de contribución
+corrplot::corrplot(resGrados$residuals, is.cor = FALSE, 
+         method = &quot;color&quot;, addgrid.col=F,
+         tl.col = &quot;black&quot;)</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="gráficos-de-mosaico" class="section level2">
+<h2><strong>Gráficos de Mosaico</strong></h2>
+<pre class="r"><code># Gráfico de mosaico simple
+vcd::mosaic(~ Nivel, data=gradosLarga)</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>vcd::mosaic(~ Grados, data=gradosLarga)</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<pre class="r"><code># Gráfico de mosaico para ambas variables
+vcd::mosaic(Grados~ Nivel, data=gradosLarga)</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
+<pre class="r"><code>vcd::doubledecker(Grados~Nivel, data=gradosLarga)</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-12-4.png" width="672" /></p>
+<pre class="r"><code># Gráfico de mosaico para ambas variables sombreado por su nivel de aporte
+vcd::mosaic(~ Nivel  + Grados,
+            direction = c(&quot;v&quot;, &quot;h&quot;),
+            data = gradosLarga,
+            shade = TRUE, 
+            spacing = vcd::spacing_equal(sp = unit(0.3, &quot;lines&quot;)))</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-12-5.png" width="672" /></p>
+</div>
+<div id="nivel-de-asociación" class="section level2">
+<h2><strong>Nivel de asociación</strong></h2>
+<p>Una vez que determinamos que existe dependencia entre las dos variables es posible que queramos conocer el nivel de dicha dependencia o asociación. Para este fin recurriremos a el <code>coeficiente de contingencia</code> o a índices como la <code>V de Cramer</code>. En particular, se recomienda el uso del coeficiente de contingencia para tablas más grandes que 5x5, mientras que para tablas pequeñas la V de Cramer es el indicador de asociación más popular. En R hay varias funciones que entregan estos resultados, aquí revisaremos dos de ellas.</p>
+<pre class="r"><code># Para matrices de contingencia
+vcd::assocstats(as.matrix(grados))</code></pre>
+<pre><code>##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 9401.3 12        0
+## Pearson          8885.1 12        0
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.408 
+## Cramer&#39;s V        : 0.258</code></pre>
+<pre class="r"><code>DescTools::Assocs(as.matrix(grados))</code></pre>
+<pre><code>##                        estimate  lwr.ci  upr.ci
+## Phi Coeff.               0.4468       -       -
+## Contingency Coeff.       0.4079       -       -
+## Cramer V                 0.2579  0.2524  0.2631
+## Goodman Kruskal Gamma   -0.1143 -0.1256 -0.1030
+## Kendall Tau-b           -0.0861 -0.0947 -0.0776
+## Stuart Tau-c            -0.0840 -0.0924 -0.0757
+## Somers D C|R            -0.0914 -0.1005 -0.0824
+## Somers D R|C            -0.0811 -0.0892 -0.0731
+## Pearson Correlation     -0.1625 -0.1715 -0.1535
+## Spearman Correlation    -0.1060 -0.1151 -0.0968
+## Lambda C|R               0.1001  0.0928  0.1074
+## Lambda R|C               0.1071  0.0993  0.1150
+## Lambda sym               0.1033  0.0980  0.1086
+## Uncertainty Coeff. C|R   0.0680  0.0655  0.0706
+## Uncertainty Coeff. R|C   0.0842  0.0811  0.0873
+## Uncertainty Coeff. sym   0.0753  0.0725  0.0780
+## Mutual Information       0.1523       -       -</code></pre>
+<pre class="r"><code># Para tablas largas, esta se debe convertir a 
+# matriz de contingencia con la funcion table()
+vcd::assocstats(table(dataMejora))</code></pre>
+<pre><code>##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 5.6275  1 0.017681
+## Pearson          5.5569  1 0.018408
+## 
+## Phi-Coefficient   : 0.23 
+## Contingency Coeff.: 0.224 
+## Cramer&#39;s V        : 0.23</code></pre>
+<pre class="r"><code>DescTools::Assocs(table(dataMejora))</code></pre>
+<pre><code>##                        estimate  lwr.ci  upr.ci
+## Phi Coeff.               0.2301       -       -
+## Contingency Coeff.       0.2242       -       -
+## Cramer V                 0.2301  0.0324  0.4213
+## Goodman Kruskal Gamma   -0.4448 -0.7672 -0.1225
+## Kendall Tau-b           -0.2301 -0.4152 -0.0449
+## Stuart Tau-c            -0.2268 -0.4095 -0.0440
+## Somers D C|R            -0.2273 -0.4104 -0.0441
+## Somers D R|C            -0.2329 -0.4208 -0.0449
+## Pearson Correlation     -0.2301 -0.4039 -0.0402
+## Spearman Correlation    -0.2301 -0.4039 -0.0402
+## Lambda C|R               0.0682  0.0000  0.3871
+## Lambda R|C               0.1800  0.0000  0.4572
+## Lambda sym               0.1277  0.0000  0.3861
+## Uncertainty Coeff. C|R   0.0394 -0.0246  0.1035
+## Uncertainty Coeff. R|C   0.0387 -0.0243  0.1017
+## Uncertainty Coeff. sym   0.0391 -0.0244  0.1026
+## Mutual Information       0.0387       -       -</code></pre>
+<p>Dado el tamaño de las matrices de contingencia, tomaremos como valor de interés a la V de Cramer. El valor va de 0, asociación nula, a 1, máxima dependencia. Para el estudio de niveles vs grados, se obtiene <code>v = 0.25</code>, por lo que podemos concluir que la asociación entre las variables es baja. Lo mismo ocurre para el estudio de la asociación entre el tratamiento (treatment) y la mejora (improvement) con <code>v = 0.23</code>.</p>
+</div>
+<div id="gráficos-de-recuentos" class="section level2">
+<h2><strong>Gráficos de recuentos</strong></h2>
+<p>La librería <code>CGPfunctions</code> provee una forma muy sencilla de graficar los conteos usando una tabla larga de datos con ambas variables categóricas en ella.</p>
+<pre class="r"><code># Gráfico para el estudio de Grados vs Nivel
+CGPfunctions::PlotXTabs(gradosLarga, Grados, Nivel)</code></pre>
+<pre><code>## Plotted dataset gradosLarga variables Grados by Nivel</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code>CGPfunctions::PlotXTabs(gradosLarga, Nivel, Grados)</code></pre>
+<pre><code>## Plotted dataset gradosLarga variables Nivel by Grados</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<pre class="r"><code># Gráfico para el estudio de treatment vs improvement
+CGPfunctions::PlotXTabs(dataMejora, treatment, improvement)</code></pre>
+<pre><code>## Plotted dataset dataMejora variables treatment by improvement</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<p>Puedes cambiar el argumento <code>plottype =</code> para cambiar rápidamente la forma del gráfico:</p>
+<pre class="r"><code># Barras apiladas
+CGPfunctions::PlotXTabs(gradosLarga, Grados, Nivel, plottype=&quot;stack&quot;)</code></pre>
+<pre><code>## Plotted dataset gradosLarga variables Grados by Nivel</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code># Barras porcentuales
+CGPfunctions::PlotXTabs(gradosLarga, Grados, Nivel, plottype=&quot;percent&quot;)</code></pre>
+<pre><code>## Plotted dataset gradosLarga variables Grados by Nivel</code></pre>
+<p><img src="/post/2021-07-27-chi-cuadrado-en-r_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<p><br></p>
+<p><strong>Para más información visita:</strong></p>
+<ul>
+<li><p><a href="https://www.brackinstitute.com/">Instituto de Ciencias Antonio Brack [website]</a></p></li>
+<li><p><a href="https://web.facebook.com/brackinstitute/">Fan page [Facebook]</a></p></li>
+<li><p><a href="https://web.facebook.com/groups/686154108929440">Comunidad RLatam [Facebook]</a></p></li>
+</ul>
+<p><a href="https://twitter.com/irssald/status/1420199125224669192">Comment</a></p>
+</div>
+</div>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/" data-id="265b270e4fc053ce26bb64eee342106b" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Compartir
+    </a>
+    
+    <a href="https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/#disqus_thread" class="article-comment-link">
+        Comentarios
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://rlatam.blog/2021/07/21/gr%C3%A1ficos-de-odds-ratio-con-oddsplotty/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Antiguo
+      </strong>
+      <div class="article-nav-title">Gráficos de Odds Ratio con OddsPlotty</div>
+    </a>
+    
+
+    
+    <a href="https://rlatam.blog/2021/12/24/%C3%A1rbol-de-navidad-en-3d-con-r/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Nuevo
+      </strong>
+      <div class="article-nav-title">Árbol de Navidad en 3D con R</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "spf13" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recientes
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://rlatam.blog/2021/12/31/mensaje-oculto-a%C3%B1o-nuevo-2022/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://rlatam.blog/banners/p3.png)" alt="Test de Independencia de Chi cuadrado usando R" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://rlatam.blog/categories/programaci%C3%B3n">
+                        Programación
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://rlatam.blog/2021/12/31/mensaje-oculto-a%C3%B1o-nuevo-2022/" class="title">Mensaje Oculto Año Nuevo 2022</a></p>
+                    <p class="item-date">
+                        <time datetime="2021-12-31 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-12-31</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://rlatam.blog/2021/12/24/%C3%A1rbol-de-navidad-en-3d-con-r/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://rlatam.blog/banners/p4.png)" alt="Test de Independencia de Chi cuadrado usando R" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://rlatam.blog/categories/data-visualization">
+                        Data Visualization
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://rlatam.blog/2021/12/24/%C3%A1rbol-de-navidad-en-3d-con-r/" class="title">Árbol de Navidad en 3D con R</a></p>
+                    <p class="item-date">
+                        <time datetime="2021-12-24 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-12-24</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://rlatam.blog/banners/p2.png)" alt="Test de Independencia de Chi cuadrado usando R" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://rlatam.blog/categories/estad%C3%ADstica">
+                        Estadística
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://rlatam.blog/2021/07/22/test-de-independencia-de-chi-cuadrado-usando-r/" class="title">Test de Independencia de Chi cuadrado usando R</a></p>
+                    <p class="item-date">
+                        <time datetime="2021-07-22 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-07-22</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://rlatam.blog/2021/07/21/gr%C3%A1ficos-de-odds-ratio-con-oddsplotty/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://rlatam.blog/banners/p1.png)" alt="Test de Independencia de Chi cuadrado usando R" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://rlatam.blog/categories/estad%C3%ADstica">
+                        Estadística
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://rlatam.blog/2021/07/21/gr%C3%A1ficos-de-odds-ratio-con-oddsplotty/" class="title">Gráficos de Odds Ratio con OddsPlotty</a></p>
+                    <p class="item-date">
+                        <time datetime="2021-07-21 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-07-21</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categorías</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/categories/data-visualization">
+                    data-visualization
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/categories/estad%C3%ADstica">
+                    estadística
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/categories/programaci%C3%B3n">
+                    programación
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/tags/3d">
+                    3d
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/tags/chi-cuadrado">
+                    chi-cuadrado
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/tags/glm">
+                    glm
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/tags/modelamiento">
+                    modelamiento
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/tags/plotly">
+                    plotly
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/tags/pruebas-estad%C3%ADsticas">
+                    pruebas-estadísticas
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://rlatam.blog/tags/r-b%C3%A1sico">
+                    r-básico
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Nube de Tags
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://rlatam.blog/tags/3d" style="font-size: 12px;">3d</a>
+        
+        
+        <a href="https://rlatam.blog/tags/chi-cuadrado" style="font-size: 12px;">chi-cuadrado</a>
+        
+        
+        <a href="https://rlatam.blog/tags/glm" style="font-size: 12px;">glm</a>
+        
+        
+        <a href="https://rlatam.blog/tags/modelamiento" style="font-size: 12px;">modelamiento</a>
+        
+        
+        <a href="https://rlatam.blog/tags/plotly" style="font-size: 12px;">plotly</a>
+        
+        
+        <a href="https://rlatam.blog/tags/pruebas-estad%C3%ADsticas" style="font-size: 12px;">pruebas-estadísticas</a>
+        
+        
+        <a href="https://rlatam.blog/tags/r-b%C3%A1sico" style="font-size: 12px;">r-básico</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://rlatam.blog/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://rlatam.blog/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

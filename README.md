@@ -1,2 +1,2 @@
 # blogR
-Blog personal de RLatam Blog
+Blog personal sobre R y aplicaciones estadísticas

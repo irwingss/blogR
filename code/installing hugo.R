@@ -1,0 +1,10 @@
+install.packages("blogdown")
+library(blogdown)
+install_hugo()
+update_hugo()
+hugo_version()
+new_site(theme = "digitalcraftsman/hugo-icarus-theme")
+hugo_build()
+hugo_build()
+serve_site()
+
