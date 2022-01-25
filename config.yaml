@@ -24,7 +24,7 @@ params:
   disable_mathjax: no
   location: Peru
   logo: assets/images/logo.png
-  mainSections: tags
+  mainSections: ["post"]
 
   menu:
     - before: yes
